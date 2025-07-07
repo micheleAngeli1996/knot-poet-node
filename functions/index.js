@@ -37,21 +37,21 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-exports.sendMail = onRequest(app.post("/sendMail", async (req, res) => {
-    const {to, subject, body} = req.body;
+app.post("/sendMail", async (req, res) => {
+    const {to, subject, text} = req.body;
 
     try {
-        transporter.sendMail({
+        await transporter.sendMail({
             from: `"Knot Poet - Official Website" <${process.env.EMAIL_USER}>`,
             to,
             subject,
-            body,
+            text,
         });
         res.status(200).json({message: "Email inviata con successo!"});
     } catch (error) {
         console.error(error);
         res.status(500).json({error: "Errore nell'invio dell'email"});
     }
-}));
+})
 
-app.use(cors);
+exports.sendMail = onRequest({region: "europe-west3"}, app);

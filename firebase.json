@@ -21,10 +21,10 @@
   "hosting": {
     "rewrites": [
       {
-        "source": "/sendMail",
+        "source": "/api/sendMail",
         "function": {
           "functionId": "sendMail",
-          "region": "us-central1",
+          "region": "europe-west3",
           "pinTag": true
         }
       }
