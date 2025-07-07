@@ -28,28 +28,30 @@ app.use(cors());
 app.use(express.json());
 
 const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  secure: true, // true per SSL, false per TLS
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: true, // true per SSL, false per TLS
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
 });
 
-exports.sendMail = onRequest(app.post("/send-email", async (req, res) => {
-  const {to, subject, body} = req.body;
+exports.sendMail = onRequest(app.post("/sendMail", async (req, res) => {
+    const {to, subject, body} = req.body;
 
-  try {
-    transporter.sendMail({
-      from: `"Knot Poet - Official Website" <${process.env.EMAIL_USER}>`,
-      to,
-      subject,
-      body,
-    });
-    res.status(200).json({message: "Email inviata con successo!"});
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({error: "Errore nell'invio dell'email"});
-  }
+    try {
+        transporter.sendMail({
+            from: `"Knot Poet - Official Website" <${process.env.EMAIL_USER}>`,
+            to,
+            subject,
+            body,
+        });
+        res.status(200).json({message: "Email inviata con successo!"});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error: "Errore nell'invio dell'email"});
+    }
 }));
+
+app.use(cors);

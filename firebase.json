@@ -17,5 +17,17 @@
         "*.local"
       ]
     }
-  ]
+  ],
+  "hosting": {
+    "rewrites": [
+      {
+        "source": "/sendMail",
+        "function": {
+          "functionId": "sendMail",
+          "region": "us-central1",
+          "pinTag": true
+        }
+      }
+    ]
+  }
 }
