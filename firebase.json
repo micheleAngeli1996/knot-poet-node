@@ -24,7 +24,7 @@
         "source": "/api/sendMail",
         "function": {
           "functionId": "sendMail",
-          "region": "europe-west3",
+          "region": "europe-west1",
           "pinTag": true
         }
       }

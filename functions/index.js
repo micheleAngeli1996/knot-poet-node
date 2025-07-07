@@ -8,13 +8,13 @@
  */
 
 // The Cloud Functions for Firebase SDK to create Cloud Functions and triggers.
-const {setGlobalOptions} = require("firebase-functions");
-const {onRequest} = require("firebase-functions/v2/https");
+const { setGlobalOptions } = require("firebase-functions");
+const { onRequest } = require("firebase-functions/v2/https");
 
 // The Firebase Admin SDK to access Firestore.
-const {initializeApp} = require("firebase-admin/app");
+const { initializeApp } = require("firebase-admin/app");
 
-setGlobalOptions({maxInstances: 10});
+setGlobalOptions({ maxInstances: 10 });
 initializeApp();
 
 // Importa le librerie necessarie
@@ -38,7 +38,7 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/sendMail", async (req, res) => {
-    const {to, subject, text} = req.body;
+    const { to, subject, text } = req.body;
 
     try {
         await transporter.sendMail({
@@ -47,11 +47,11 @@ app.post("/sendMail", async (req, res) => {
             subject,
             text,
         });
-        res.status(200).json({message: "Email inviata con successo!"});
+        res.status(200).json({ message: "Email inviata con successo!" });
     } catch (error) {
         console.error(error);
-        res.status(500).json({error: "Errore nell'invio dell'email"});
+        res.status(500).json({ error: "Errore nell'invio dell'email" });
     }
-})
+});
 
-exports.sendMail = onRequest({region: "europe-west3"}, app);
+exports.sendMail = onRequest({region: 'europe-west1'}, app);
